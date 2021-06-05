@@ -57,9 +57,9 @@ export default new Vuex.Store({
 				// state.user.profile = {}
 				state.world = serverState['world.config'].world
 				state.permissions = serverState['world.config'].permissions
-				commit('chat/setJoinedChannels', serverState['chat.channels'])
-				commit('chat/setReadPointers', serverState['chat.read_pointers'])
-				commit('exhibition/setData', serverState.exhibition)
+				// commit('chat/setJoinedChannels', serverState['chat.channels'])
+				// commit('chat/setReadPointers', serverState['chat.read_pointers'])
+				// commit('exhibition/setData', serverState.exhibition)
 				commit('updateRooms', serverState['world.config'].rooms)
 				// FIXME copypasta from App.vue
 				if (state.activeRoom?.modules.some(module => ['livestream.native', 'call.bigbluebutton', 'call.janus', 'livestream.youtube'].includes(module.type))) {

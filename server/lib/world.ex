@@ -13,6 +13,14 @@ defmodule Venueless.World do
 		world_id |> via_tuple() |> GenServer.call(:log_state)
 	end
 
+	def get_state(world_pid) when is_pid(world_pid) do
+		GenServer.call(world_pid, :get_state)
+	end
+
+	def get_state(world_id) do
+		world_id |> via_tuple() |> GenServer.call(:get_state)
+	end
+
 	def connect(world_id, user_id) do
 		world_id |> via_tuple() |> GenServer.call({:connect, user_id})
 	end
@@ -41,6 +49,14 @@ defmodule Venueless.World do
 	@impl true
 	def handle_call(:log_state, _from, state) do
 		{:reply, "State: #{inspect(state)}", state}
+	end
+
+	@impl true
+	def handle_call(:get_state, _from, state) do
+		{:reply, %{
+			:world => state.config,
+			:rooms => state.config["rooms"]
+		}, state}
 	end
 
 	@impl true
