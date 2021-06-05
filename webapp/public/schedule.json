@@ -1,0 +1,316 @@
+{
+    "version": "none",
+    "rooms": [
+        {
+            "id": "H",
+            "name": "Plenumssaal"
+        },
+        {
+            "id": "A",
+            "name": "Workshop"
+        },
+        {
+            "id": "B",
+            "name": "Workshop"
+        },
+        {
+            "id": "C",
+            "name": "Workshop"
+        },
+        {
+            "id": "D",
+            "name": "Workshop"
+        },
+        {
+            "id": "E",
+            "name": "Workshop"
+        }
+    ],
+    "tracks": [],
+    "speakers": [
+        {
+            "code": "SS",
+            "name": "Dr. Stephanie Saleth (Leiterin der FamilienForschung Baden-W\u00fcrttemberg)",
+            "avatar": null
+        },
+        {
+            "code": "UW",
+            "name": "Ursel Wolfgramm (Vorsitzende der Liga der freien Wohlfahrtspflege in Baden-W\u00fcrttemberg)",
+            "avatar": null
+        },
+        {
+            "code": "SL",
+            "name": "Stefan Lob (Praxis f\u00fcr F\u00fchrung \u2013 X.0)",
+            "avatar": "/sponsors/rash.png"
+        },
+        {
+            "code": "ML",
+            "name": "Sozial- und Integrationsminister Manfred Lucha MdL",
+            "avatar": null
+        },
+        {
+            "code": "LFW",
+            "name": "Liga der freien Wohlfahrtspflege in Baden-W\u00fcrttemberg",
+            "avatar": null
+        },
+        {
+            "code": "LFR",
+            "name": "Landesfamilienrat Baden-W\u00fcrttemberg",
+            "avatar": null
+        },
+        {
+            "code": "LAK",
+            "name": "Landesarmutskonferenz Baden-W\u00fcrttemberg",
+            "avatar": null
+        },
+        {
+            "code": "IKPE",
+            "name": "Dr. Stefan Huber und Laurence Frank, Institut f\u00fcr kommunale Planung und Entwicklung (IKPE)",
+            "avatar": null
+        },
+        {
+            "code": "CA",
+            "name": "Prof. Christel Althaus (Vorsitzende des Gesch\u00e4ftsf\u00fchrenden Vorstands im Landesfamilienrat Baden-W\u00fcrttemberg)",
+            "avatar": null
+        },
+        {
+            "code": "BM",
+            "name": "Staatssekret\u00e4rin B\u00e4rbl Mielich MdL (Ministerium f\u00fcr Soziales und Integration Baden-W\u00fcrttemberg)",
+            "avatar": null
+        },
+        {
+            "code": "RS",
+            "name": "Roland Saurer (Sprecher der Landesarmutskonferenz Baden-W\u00fcrttemberg)",
+            "avatar": null
+        }
+    ],
+    "talks": [
+        {
+            "code": null,
+            "title": "Einwahl und Ankommen",
+            "abstract": null,
+            "speakers": [],
+            "track": null,
+            "room": "H",
+            "start": "2020-10-19T08:45:00",
+            "end": "2020-10-19T09:00:00",
+            "url": "none"
+        },
+        {
+            "code": 2,
+            "title": "Begr\u00fc\u00dfung",
+            "abstract": "hurr ein abstract",
+            "speakers": [
+                "SL",
+                "ML",
+                "LFW",
+                "LFR",
+                "LAK"
+            ],
+            "track": null,
+            "room": "H",
+            "start": "2020-10-19T09:00:00",
+            "end": "2020-10-19T09:45:00"
+        },
+        {
+            "code": 3,
+            "title": "Panel: Datenlage zu Kinder-/Familienarmut in Baden-W\u00fcrttemberg, Interpretation der Daten im Hinblick auf Lebenslagen",
+            "abstract": null,
+            "speakers": [
+                "SS",
+                "UW"
+            ],
+            "track": null,
+            "room": "H",
+            "start": "2020-10-19T09:45:00",
+            "end": "2020-10-19T10:45:00",
+            "url": "none"
+        },
+        {
+            "code": null,
+            "title": "Pause",
+            "abstract": null,
+            "speakers": [],
+            "track": null,
+            "room": "H",
+            "start": "2020-10-19T10:45:00",
+            "end": "2020-10-19T11:00:00",
+            "url": "none"
+        },
+        {
+            "code": "W1",
+            "title": "Workshop 1 \u201eMaterielle Situation von Kindern und Kindergrundsicherung\u201c",
+            "abstract": null,
+            "speakers": [],
+            "track": null,
+            "room": "A",
+            "start": "2020-10-19T11:00:00",
+            "end": "2020-10-19T12:30:00",
+            "url": "none"
+        },
+        {
+            "code": "W2",
+            "title": "Workshop 2 \u201eArmutsrisiko Sucht \u2013 Belastungen von Kindern sucht- und psychisch erkrankter Eltern\u201c",
+            "abstract": null,
+            "speakers": [],
+            "track": null,
+            "room": "B",
+            "start": "2020-10-19T11:00:00",
+            "end": "2020-10-19T12:30:00",
+            "url": "none"
+        },
+        {
+            "code": "W3",
+            "title": "Workshop 3 \u201eFamilienleben und Stra\u00dfe \u2013 wie kommt das zusammen? \u2013 Ein Gespr\u00e4ch von Menschen in prek\u00e4ren Lebenslagen\u201c (Teilhabe/Exklusion/Extreme Armut\u201c)",
+            "abstract": null,
+            "speakers": [],
+            "track": null,
+            "room": "C",
+            "start": "2020-10-19T11:00:00",
+            "end": "2020-10-19T12:30:00",
+            "url": "none"
+        },
+        {
+            "code": "W4",
+            "title": "Workshop 4 \u201eArmut und Migration\u201c",
+            "abstract": null,
+            "speakers": [],
+            "track": null,
+            "room": "D",
+            "start": "2020-10-19T11:00:00",
+            "end": "2020-10-19T12:30:00",
+            "url": "none"
+        },
+        {
+            "code": "W5",
+            "title": "Workshop 5 \u201eArmut im Lebensverlauf\u201c",
+            "abstract": null,
+            "speakers": [],
+            "track": null,
+            "room": "E",
+            "start": "2020-10-19T11:00:00",
+            "end": "2020-10-19T12:30:00",
+            "url": "none"
+        },
+        {
+            "code": 6,
+            "title": "Zwischenfazit und erste Eindr\u00fccke der Veranstalterinnen und Veranstalter",
+            "abstract": null,
+            "speakers": [],
+            "track": null,
+            "room": "H",
+            "start": "2020-10-19T12:30:00",
+            "end": "2020-10-19T13:00:00",
+            "url": "none"
+        },
+        {
+            "code": null,
+            "title": "Einwahl und Ankommen",
+            "abstract": null,
+            "speakers": [],
+            "track": null,
+            "room": "H",
+            "start": "2020-10-20T08:45:00",
+            "end": "2020-10-20T09:00:00",
+            "url": "none"
+        },
+        {
+            "code": 9,
+            "title": "Begr\u00fc\u00dfung und kurzer R\u00fcckblick: Was bisher geschah?",
+            "abstract": null,
+            "speakers": [
+                "SL"
+            ],
+            "track": null,
+            "room": "H",
+            "start": "2020-10-20T09:00:00",
+            "end": "2020-10-20T09:15:00",
+            "url": "none"
+        },
+        {
+            "code": 10,
+            "title": "Panel: Gesamtstrategien zur Armutsbek\u00e4mpfung, Interpretation im Hinblick auf eine Gesamtstrategie f\u00fcr Baden-W\u00fcrttemberg",
+            "abstract": null,
+            "speakers": [
+                "IKPE",
+                "CA"
+            ],
+            "track": null,
+            "room": "H",
+            "start": "2020-10-20T09:15:00",
+            "end": "2020-10-20T10:30:00",
+            "url": "none"
+        },
+        {
+            "code": null,
+            "title": "Pause",
+            "abstract": null,
+            "speakers": [],
+            "track": null,
+            "room": "H",
+            "start": "2020-10-20T10:30:00",
+            "end": "2020-10-20T10:45:00",
+            "url": "none"
+        },
+        {
+            "code": "W6",
+            "title": "Workshop 6 \u201eStarke Familien \u2013 starke Kinder! FamilienBildung gegen Armut\u201c",
+            "abstract": null,
+            "speakers": [],
+            "track": null,
+            "room": "A",
+            "start": "2020-10-20T10:45:00",
+            "end": "2020-10-20T12:15:00",
+            "url": "none"
+        },
+        {
+            "code": "W7",
+            "title": "Workshop 7 \u201ePr\u00e4ventionsnetzwerke gegen Kinderarmut und f\u00fcr Kindergesundheit\u201c",
+            "abstract": null,
+            "speakers": [],
+            "track": null,
+            "room": "B",
+            "start": "2020-10-20T10:45:00",
+            "end": "2020-10-20T12:15:00",
+            "url": "none"
+        },
+        {
+            "code": "W8",
+            "title": "Workshop 8 \u201eFamilienerholung: Auszeit von Belastungen und Lernerfahrung f\u00fcr Familien\u201c",
+            "abstract": null,
+            "speakers": [],
+            "track": null,
+            "room": "C",
+            "start": "2020-10-20T10:45:00",
+            "end": "2020-10-20T12:15:00",
+            "url": "none"
+        },
+        {
+            "code": "W9",
+            "title": "Workshop 9 \u201eStarke Kinder \u2013 erste Praxiserfahrungen aus dem ESF-F\u00f6rderprogramm\u201c",
+            "abstract": null,
+            "speakers": [],
+            "track": null,
+            "room": "D",
+            "start": "2020-10-20T10:45:00",
+            "end": "2020-10-20T12:15:00",
+            "url": "none"
+        },
+        {
+            "code": 13,
+            "title": "Schlusswort und Fazit",
+            "abstract": null,
+            "speakers": [
+                "BM",
+                "UW",
+                "CA",
+                "RS"
+            ],
+            "track": null,
+            "room": "H",
+            "start": "2020-10-20T12:15:00",
+            "end": "2020-10-20T13:00:00",
+            "url": "none"
+        }
+    ]
+}

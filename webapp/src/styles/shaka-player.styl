@@ -1,0 +1,392 @@
+unselectable()
+	user-select: none
+	-webkit-user-select: none
+	-moz-user-select: none
+	-ms-user-select: none
+
+hidden()
+	display: none
+
+fill-container()
+	width: 100%
+	height: 100%
+
+overlay-parent()
+	position: relative
+	top: 0
+	left: 0
+
+overlay-child()
+	position: absolute
+	top: 0
+	left: 0
+	right: 0
+	bottom: 0
+	margin: 0
+	padding: 0
+
+	fill-container()
+
+absolute-position()
+	position: absolute
+	left: 0
+	right: 0
+	top: 0
+	bottom: 0
+
+unshrinkable()
+	flex-shrink: 0
+
+shrinkable()
+	flex-shrink: 1
+
+$transparent = rgba(0, 0, 0, 0)
+
+.shaka-video-container
+	overlay-parent()
+	display: flex
+	.material-icons
+		font-family: 'Material Design Icons'
+	*
+		font-family: Roboto-Regular, Roboto, sans-serif
+
+fullscreen-container()
+	.fill-container()
+
+	background-color: black
+
+	.shaka-text-container
+		font-size: 4.4vmin
+
+.shaka-video-container:fullscreen
+	fullscreen-container()
+.shaka-video-container:-webkit-full-screen
+	fullscreen-container()
+.shaka-video-container:-moz-full-screen
+	fullscreen-container()
+.shaka-video-container:-ms-fullscreen
+	fullscreen-container()
+
+.shaka-controls-container
+	overlay-child()
+	box-sizing: border-box
+	display: flex
+	flex-direction: column
+	justify-content: flex-end
+	align-items: center
+	*
+		unshrinkable()
+	opacity: 0
+	transition: opacity cubic-bezier(0.4, 0, 0.6, 1) 600ms
+	z-index: 1
+	&[shown="true"]
+		opacity: 1
+	&[casting="true"]
+		opacity: 1
+		.shaka-fullscreen-button
+			hidden()
+
+.shaka-bottom-controls
+	width: 96%
+	padding: 0
+	padding-bottom: 2.5%
+	z-index: 1
+
+.shaka-controls-button-panel
+	padding: 0
+	margin: 0
+	display: flex
+	flex-direction: row
+	justify-content: flex-end
+	align-items: center
+	overflow: hidden
+	min-width: 48px
+	font-size: 12px
+	font-weight: normal
+	font-style: normal
+	unselectable()
+	> *
+		color: white
+		height: 32px
+		margin: 1px 6px
+		padding: 0
+		background: transparent
+		border: 0
+		cursor: pointer
+
+.shaka-play-button-container
+	margin: 0
+	fill-container()
+	shrinkable()
+	absolute-position()
+	display: flex
+	justify-content: center
+	align-items: center
+
+.shaka-skim-container
+	margin: 0
+	fill-container()
+	shrinkable()
+	absolute-position()
+
+	background: linear-gradient(to top, rgba(0, 0, 0, 1) 0, $transparent 92px)
+
+.shaka-text-container
+	absolute-position()
+
+	bottom: 0%
+	width: 100%
+	min-width: 48px
+	text-align: center
+	transition: bottom cubic-bezier(0.4, 0, 0.6, 1) 100ms
+	transition-delay: 500ms
+	display: flex
+	flex-direction: column
+	align-items: center
+	justify-content: flex-end
+	font-size: 20px
+	line-height: 1.4
+
+	span
+		background-color: rgba(0, 0, 0, 0.8)
+		color: rgb(255, 255, 255)
+		display: inline-block
+
+.shaka-controls-container[shown="true"] ~ .shaka-text-container
+	bottom: 15%
+	transition-delay: 0ms
+
+.shaka-spinner-container
+	absolute-position()
+	fill-container()
+	flex-shrink: 1
+	display: flex
+	justify-content: center
+	align-items: center
+
+$spinner-size-percentage = 15.6%
+
+.shaka-spinner
+	overlay-parent()
+	margin: 0
+	box-sizing: border-box
+	padding: $spinner-size-percentage / 2
+	width: 0
+	height: 0
+
+$play-button-size-percentage = 15%
+
+.shaka-play-button
+	box-sizing: border-box
+	padding: $play-button-size-percentage / 2
+	width: 0
+	height: 0
+	margin: 0
+	border-radius: 50%
+	box-shadow: rgba(0, 0, 0, 0.1) 0 0 20px 0
+	border: none
+	background-size: 50%
+	background-repeat: no-repeat
+	background-position: center center
+	background-color: rgba(255, 255, 255, 0.9)
+	&[icon="play"]
+		background-image: embedurl("~shaka-player/ui/images/play_arrow.svg", "utf8")
+
+	&[icon="pause"]
+		background-image: embedurl("~shaka-player/ui/images/pause.svg", "utf8")
+
+.shaka-current-time
+	font-size: 14px
+	color: rgb(255, 255, 255)
+	height: auto
+	cursor: pointer
+
+	&[disabled]
+		background-color: transparent
+		color: white
+		cursor: default
+
+.shaka-controls-container
+	button:focus, input:focus
+		outline: 1px solid Highlight
+		outline: 1px solid -webkit-focus-ring-color
+
+	button:-moz-focus-inner, input:-moz-focus-outer
+		outline: none
+		border: 0
+
+.shaka-controls-container:not(.shaka-keyboard-navigation)
+	button:focus, input:focus
+		outline: none
+
+.shaka-mobile
+	.shaka-volume-bar-container
+		display: none
+
+$thumb-color = white
+$track-default-color = white
+$thumb-size = 12px
+$track-height = 4px
+
+range-container()
+	overlay-parent()
+
+	margin: ($thumb-size - $track-height)/2 6px
+	height: $track-height
+	border-radius: $track-height
+	background: $track-default-color
+
+track()
+	width: 100%
+	height: $thumb-size
+	background: transparent
+	color: transparent
+	border: none
+
+thumb()
+	-webkit-appearance: none
+	border: none
+	border-radius: $thumb-size
+	height: $thumb-size
+	width: $thumb-size
+	background: $thumb-color
+
+range-element()
+	-webkit-appearance: none
+	background: transparent
+	overlay-child()
+	height: $thumb-size
+	top: ($track-height - $thumb-size) / 2
+	z-index: 1
+	&::-webkit-slider-runnable-track
+		track()
+	&::-webkit-slider-thumb
+		thumb()
+	&::-moz-range-track
+		track()
+	&::-moz-range-thumb
+		thumb()
+
+.shaka-range-container
+	range-container()
+
+.shaka-volume-bar-container
+	width: 100px
+	@media screen and (max-width: 550px)
+		hidden()
+
+.shaka-range-element
+	range-element()
+
+.shaka-spinner-svg
+	overlay-child()
+	animation: rotate 2s linear infinite
+	transform-origin: center center
+	width: 100%
+	height: 100%
+	margin: 0
+	padding: 0
+
+.shaka-spinner-path
+	stroke: #202124
+	stroke-dasharray: 20, 200
+	stroke-dashoffset: 0
+	animation: dash 1.5s ease-in-out infinite
+	stroke-linecap: round
+
+$keyframes rotate
+	100%
+		transform: rotate(360deg)
+
+$keyframes dash
+	0%
+		stroke-dasharray: 1, 200
+		stroke-dashoffset: 0
+
+	50%
+		stroke-dasharray: 89, 200
+		stroke-dashoffset: -35px
+
+	100%
+		stroke-dasharray: 89, 200
+		stroke-dashoffset: -124px
+
+.shaka-spacer
+	cursor: default
+	shrinkable()
+	flex-grow: 1
+	margin: 0
+
+.shaka-settings-menu
+	overflow-x: hidden
+	overflow-y: auto
+	white-space: nowrap
+	background: white
+	box-shadow: 0 1px 9px 0 rgba(0, 0, 0, 0.4)
+	border-radius: 2px
+	max-height: 250px
+	min-width: 180px
+	hidden()
+	flex-direction: column
+	position: absolute
+	z-index: 2
+	right: 15px
+	bottom: 30px
+
+	button
+		font-size: 14px
+		background: transparent
+		color: black
+		border: none
+		min-height: 30px
+		padding: 3.5px 6px
+		display: flex
+		align-items: center
+		&:hover
+			background: rgb(224, 224, 224)
+
+
+		.shaka-keyboard-navigation &:focus
+			background: rgb(224, 224, 224)
+
+	i
+		padding-left: 10px
+		padding-right: 10px
+
+	&.shaka-low-position
+		bottom: 15px
+
+.shaka-overflow-menu span
+	text-align: left
+
+.shaka-overflow-button-label
+	position: relative
+	display: flex
+	flex-direction: column
+
+.shaka-current-selection-span
+	color: rgba(0, 0, 0, 0.54)
+
+.shaka-resolutions, .shaka-audio-languages, .shaka-text-languages
+	span
+		margin-left: 54px
+
+.shaka-back-to-overflow-button
+	span
+		margin-left: 0
+
+	i
+		padding-right: 20px
+
+.shaka-auto-span
+	left: 17px
+
+.shaka-captions-on
+	color: black
+
+.shaka-captions-off
+	color: grey
+
+.shaka-mute-button
+	&::before
+		content: "\F0581"
