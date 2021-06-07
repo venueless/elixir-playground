@@ -1,7 +1,10 @@
 #!/bin/bash
 # Apply database migrations
-# echo "Apply database migrations"
-# python manage.py migrate
+
+# mix ecto.drop
+mix ecto.create
+echo "Apply database migrations"
+mix ecto.migrate
 
 # Start server
 echo "Starting server"

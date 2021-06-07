@@ -13,7 +13,10 @@ defmodule Venueless.Socket do
 		Logger.info("received connection for world #{world_id}")
 		# TODO load world if it's not online
 		[{world, _}] = Registry.lookup(Venueless.WorldRegistry, world_id)
-		state = %{world: world}
+		state = %{
+			world_id: world_id,
+			world: world
+		}
 		{:ok, state}
 	end
 
@@ -37,7 +40,7 @@ defmodule Venueless.Socket do
 		{:ok, user_pid} = case login_info do
 			%{"client_id" => client_id} ->
 				Logger.info('authenticating with client id: #{client_id}')
-				User.connect(%{:client_id => client_id})
+				User.connect(state.world_id, %{:client_id => client_id})
 			%{"token" => token} ->
 				Logger.info('authenticating with token: #{token}')
 		end
