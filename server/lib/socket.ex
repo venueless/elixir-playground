@@ -21,9 +21,19 @@ defmodule Venueless.Socket do
 	end
 
 	def websocket_handle({:text, json}, state) do
-		payload = Jason.decode!(json)
-		Logger.info("got message: #{inspect(payload)}")
-		result = handle_message(state, payload)
+		message = Jason.decode!(json)
+		Logger.info("got message: #{inspect(message)}")
+		result = case message do
+			[action, seq, payload] when is_integer(seq) ->
+				# TODO exception handling?
+				case handle_rpc_call(action, seq, payload, state) do
+					{:ok, response, state} -> {:reply, ["success", seq, response], state}
+					{:ok, state} -> {:reply, ["success", seq], state}
+					# TODO handle long running tasks somehow
+					{:error, error, state} -> {:reply, ["error", seq, error], state}
+				end
+			message -> handle_message(message, state)
+		end
 		Logger.info(inspect(result))
 		case result do
 			{:reply, reply, state} -> {:reply, {:text, Jason.encode!(reply)}, state}
@@ -36,7 +46,9 @@ defmodule Venueless.Socket do
 		{:reply, {:text, info}, state}
 	end
 
-	defp handle_message(state, ["authenticate", login_info]) do
+	# GENERIC MESSAGE HANDLERS
+
+	defp handle_message(["authenticate", login_info], state) do
 		{:ok, user_pid} = case login_info do
 			%{"client_id" => client_id} ->
 				Logger.info('authenticating with client id: #{client_id}')
@@ -47,16 +59,24 @@ defmodule Venueless.Socket do
 		state = Map.put(state, :user_pid, user_pid)
 		{:reply, ["authenticated", %{
 			"world.config" => World.get_state(state.world),
-			"user.config" => %{"id" => 3, "profile" => %{}}
+			"user.config" => User.get_user_data(user_pid)
 		}], state}
 	end
 
-	defp handle_message(state, ["ping", timestamp]) do
+	defp handle_message(["ping", timestamp], state) do
 		{:reply, ["pong", timestamp], state}
 	end
 
 	defp handle_message(state, message) do
 		Logger.info('UNHANDLED MESSAGE')
 		{:ok, state}
+	end
+
+
+	# REQUEST/RESPONSE CALL HANDLERS
+
+	defp handle_rpc_call("user." <> action, _, payload, state) do
+		response = User.rpc_call(state.user_pid, action, payload)
+		Tuple.append(response, state)
 	end
 end
