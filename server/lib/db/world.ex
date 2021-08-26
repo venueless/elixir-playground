@@ -18,8 +18,8 @@ defmodule Venueless.Db.World do
 
 	def get_with_rooms_and_users (id) do
 		(from w in World,
-		join: r in assoc(w, :rooms),
-		join: u in assoc(w, :users),
+		left_join: r in assoc(w, :rooms),
+		left_join: u in assoc(w, :users),
 		preload: [rooms: r, users: u])
 		|> Repo.get(id)
 	end
