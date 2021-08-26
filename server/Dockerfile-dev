@@ -3,15 +3,18 @@ FROM elixir:latest
 RUN apt-get update -qq && apt-get install -y inotify-tools
 
 COPY mix.exs /
+COPY mix.lock /
 
 RUN mix local.hex --force && \
     mix local.rebar --force
 
-WORKDIR /app
+
 ENV MIX_DEPS_PATH=/deps
 ENV MIX_BUILD_ROOT=/_build
 
 RUN mix deps.get
 RUN mix deps.compile
+
+WORKDIR /app
 
 EXPOSE 8375
