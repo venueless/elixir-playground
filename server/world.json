@@ -14,5 +14,23 @@
         }
       }
     ]
+  }, {
+    "id": "chat",
+    "name": "Chat",
+    "description": "Standalone Chat",
+    "modules": [
+      {
+        "type": "livestream.native",
+        "config": {
+          "hls_url": "https://s1.live.pretix.eu/hls/sample.m3u8"
+        }
+      },
+      {
+        "type": "chat.native",
+        "config": {
+          "volatile": true
+        }
+      }
+    ]
   }]
 }

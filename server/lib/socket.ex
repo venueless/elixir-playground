@@ -26,11 +26,13 @@ defmodule Venueless.Socket do
 		result = case message do
 			[action, seq, payload] when is_integer(seq) ->
 				# TODO exception handling?
-				case handle_rpc_call(action, seq, payload, state) do
-					{:ok, response, state} -> {:reply, ["success", seq, response], state}
-					{:ok, state} -> {:reply, ["success", seq], state}
+				# pipe everything through user
+				response = User.rpc_call(state.user_pid, action, payload)
+				case response do
+					{:ok, response} -> {:reply, ["success", seq, response], state}
+					{:ok} -> {:reply, ["success", seq], state}
 					# TODO handle long running tasks somehow
-					{:error, error, state} -> {:reply, ["error", seq, error], state}
+					{:error, error} -> {:reply, ["error", seq, error], state}
 				end
 			message -> handle_message(message, state)
 		end
@@ -42,8 +44,9 @@ defmodule Venueless.Socket do
 		end
 	end
 
-	def websocket_info(info, state) do
-		{:reply, {:text, info}, state}
+	def websocket_info(message, state) do
+		Logger.info("sending broadcast message #{inspect(message)}")
+		{[{:text, Jason.encode!(message)}], state}
 	end
 
 	# GENERIC MESSAGE HANDLERS
@@ -70,13 +73,5 @@ defmodule Venueless.Socket do
 	defp handle_message(state, message) do
 		Logger.info('UNHANDLED MESSAGE')
 		{:ok, state}
-	end
-
-
-	# REQUEST/RESPONSE CALL HANDLERS
-
-	defp handle_rpc_call("user." <> action, _, payload, state) do
-		response = User.rpc_call(state.user_pid, action, payload)
-		Tuple.append(response, state)
 	end
 end

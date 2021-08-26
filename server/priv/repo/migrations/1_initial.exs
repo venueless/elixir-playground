@@ -42,5 +42,16 @@ defmodule Venueless.Db.Repo.Migrations.Initial do
 			# import_id
 			# schedule_data
 		end
+
+		create table("room_events", primary_key: false) do
+			add :id, :binary_id, null: false, primary_key: true
+			add :room_id, references("rooms", type: :uuid), null: false
+			add :sender_id, references("users", type: :uuid), null: false
+			add :timestamp, :utc_datetime_usec, null: false
+			add :type, :string, null: false
+			add :content, :map
+			# edited
+			# replaces
+		end
 	end
 end

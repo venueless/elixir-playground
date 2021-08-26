@@ -27,6 +27,7 @@ defmodule Venueless.MixProject do
 			{:exsync, "~> 0.2", only: :dev},
 			{:ecto_sql, "~> 3.0"},
 			{:postgrex, ">= 0.0.0"},
+			{:ecto_ulid, "~> 0.2.0"},
 		]
 	end
 end

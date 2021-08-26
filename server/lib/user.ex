@@ -3,6 +3,8 @@ defmodule Venueless.User do
 	require Logger
 
 	alias Venueless.Db
+	alias Venueless.Room
+	alias Venueless.World
 
 	defp via_tuple(user),
 		do: {:via, Registry, {Venueless.UserRegistry, user.id, %{
@@ -22,19 +24,9 @@ defmodule Venueless.User do
 				{:ok, user_pid}
 			_ ->
 				Logger.info("user not registered, creating")
-				user = case Db.Repo.get_by(Db.User, [
-					world_id: world_id,
-					client_id: login_info.client_id
-				]) do
-					nil ->
-						Db.Repo.insert!(%Db.User{
-							world_id: world_id,
-							client_id: login_info.client_id
-						})
-					user -> user
-				end
-				{:ok, pid} = DynamicSupervisor.start_child(Venueless.UserSupervisor, {Venueless.User, user})
-				{:ok, pid}
+				{:ok, user} = World.connect_user(world_id, login_info)
+				{:ok, user_pid} = DynamicSupervisor.start_child(Venueless.UserSupervisor, {Venueless.User, {user, world_id}})
+				{:ok, user_pid}
 		end
 	end
 
@@ -48,15 +40,16 @@ defmodule Venueless.User do
 
 	# called by UserSupervisor when running start_child
 	# actually starts a new process (with init) and hooks up to supervisor and registry
-	def start_link(user) do
-		GenServer.start_link(__MODULE__, user, name: via_tuple(user))
+	def start_link({user, world_pid}) do
+		GenServer.start_link(__MODULE__, {user, world_pid}, name: via_tuple(user))
 	end
 
 	@impl true
-	def init(user) do
+	def init({user, world_id}) do
 		Logger.info("Starting user #{inspect(user)}")
 		{:ok, %{
 			user: user,
+			world_id: world_id
 		}}
 	end
 
@@ -69,18 +62,38 @@ defmodule Venueless.User do
 	end
 
 	@impl true
-	def handle_call({:rpc_call, action, payload}, _from, state) do
-		handle_rpc_call(action, payload, state)
+	def handle_call({:rpc_call, action, payload}, {sender_pid, _}, state) do
+		handle_rpc_call(action, payload, sender_pid, state)
 	end
 
-	defp handle_rpc_call("update", update, state) do
-		changeset = Db.User.update_changeset(state.user, update)
+	defp handle_rpc_call("user.update", payload, _client_pid, state) do
+		changeset = Db.User.update_changeset(state.user, payload)
 		case Db.Repo.update(changeset) do
 			{:ok, user} ->
 				state = Map.put(state, :user, user)
-				{:reply, {:ok, Db.User.serialize_public(user)}, state }
+				{:reply, {:ok, Db.User.serialize_public(user)}, state}
 			{:error, error} -> {:reply, {:error, error}, state}
 		end
+	end
 
+	defp handle_rpc_call("user.fetch", payload, _client_pid, state) do
+		{:ok, users} = World.get_users(state.world_id, payload["ids"])
+		{:reply, {:ok, Enum.map(users, fn user -> Db.User.serialize_public(user) end)}, state}
+	end
+
+	defp handle_rpc_call("room." <> action, payload, sender_pid, state) do
+		lookup = Registry.lookup(Venueless.RoomRegistry, payload["room"])
+		case lookup do
+			[{room_pid, _}] ->
+				response = Room.rpc_call(room_pid, action, payload, state.user, sender_pid)
+				{:reply, response, state}
+			_ -> {:reply, {:error, "room not found"}, state}
+		end
+
+	end
+
+	defp handle_rpc_call(action, _, payload, state) do
+		Logger.error("unmatched call action #{action} #{inspect(payload)}")
+		{:reply, {:error, "unknown action"}, state}
 	end
 end

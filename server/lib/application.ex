@@ -10,6 +10,7 @@ defmodule Venueless do
 			{Plug.Cowboy, scheme: :http, dispatch: dispatch(), plug: Venueless.Router, port: 8375},
 			{Venueless.WorldSupervisor, []},
 			{Registry, [keys: :unique, name: Venueless.WorldRegistry]},
+			{Registry, [keys: :unique, name: Venueless.RoomRegistry]},
 			{DynamicSupervisor, strategy: :one_for_one, name: Venueless.UserSupervisor},
 			{Registry, [keys: :unique, name: Venueless.UserRegistry]}
 		]
@@ -20,11 +21,18 @@ defmodule Venueless do
 		world_config = Jason.decode!(File.read!('./world.json'))
 		world = case Db.Repo.get(Db.World, world_config["id"]) do
 			nil ->
-				Db.Repo.insert!(%Db.World{
+				world = Db.Repo.insert!(%Db.World{
 					id: world_config["id"],
 					title: world_config["title"],
 					config: world_config
 				})
+				Enum.each(world_config["rooms"], fn room ->
+					Db.Repo.insert!(%Db.Room{
+						world: world,
+						name: room["name"],
+						modules: room["modules"]
+					})
+				end)
 			world -> world
 		end
 		Logger.info(world)
