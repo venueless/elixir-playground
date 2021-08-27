@@ -49,7 +49,7 @@ defmodule Venueless.Room do
 			content: payload["content"]
 		})
 		Logger.info("saved room event #{inspect(event)}")
-		broadcast_to_others(["room.event", event], sender_pid, state)
+		broadcast_to_others(Jason.encode!(["room.event", event]), sender_pid, state)
 		{:reply, {:ok, event}, state}
 	end
 

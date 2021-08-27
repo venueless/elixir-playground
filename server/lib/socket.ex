@@ -46,7 +46,7 @@ defmodule Venueless.Socket do
 
 	def websocket_info(message, state) do
 		Logger.info("sending broadcast message #{inspect(message)}")
-		{[{:text, Jason.encode!(message)}], state}
+		{[{:text, message}], state}
 	end
 
 	# GENERIC MESSAGE HANDLERS
