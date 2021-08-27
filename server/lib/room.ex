@@ -24,6 +24,7 @@ defmodule Venueless.Room do
 		{:ok, %{
 			room: room,
 			subscribed_clients: %{},
+			events: []
 			# client_monitors: %{}
 		}}
 	end
@@ -48,13 +49,15 @@ defmodule Venueless.Room do
 			type: payload["type"],
 			content: payload["content"]
 		})
+		state = update_in(state.events, &([event] ++ &1))
 		Logger.info("saved room event #{inspect(event)}")
 		broadcast_to_others(Jason.encode!(["room.event", event]), sender_pid, state)
 		{:reply, {:ok, event}, state}
 	end
 
 	defp handle_rpc_call("fetch", payload, _user, _sender_pid, state) do
-		events = Db.RoomEvent.list_after_id(payload["before_id"], payload["count"])
+		events = Enum.slice(state.events, 0, payload["count"]) # HACK, actually find index later
+		# events = Db.RoomEvent.list_after_id(payload["before_id"], payload["count"])
 		{:reply, {:ok, events}, state}
 	end
 
