@@ -3,6 +3,7 @@ import VenueLessClient from './client.js'
 
 import { getRandomNormalDist } from './utils.js'
 
+const SILENT_USER_PROPABILITY = 0.9
 const MEAN_TIME_TO_CHAT_MESSAGE = 15000 // 15s
 
 export const options = {
@@ -35,6 +36,7 @@ export default function () {
 			client.sendChatMessage()
 			client.setTimeout(chat, getRandomNormalDist() * MEAN_TIME_TO_CHAT_MESSAGE * 2)
 		}
+		if (Math.random() < SILENT_USER_PROPABILITY) return
 		client.setTimeout(chat, getRandomNormalDist() * MEAN_TIME_TO_CHAT_MESSAGE * 2)
 	})
 }
