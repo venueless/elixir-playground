@@ -1,6 +1,6 @@
 # Load test results
 
-## 2021-08-28 docker compose gunicorn on single CCX62
+## 2021-08-28 docker compose on single CCX62
 
 ### Run 1
 
