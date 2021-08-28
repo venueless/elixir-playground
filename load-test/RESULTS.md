@@ -1,5 +1,59 @@
 # Load test results
 
+## 2021-08-28 docker compose gunicorn on single CCX62
+
+### Run 1
+
+- joining clients: 33.3/s
+- mean time to chat message: 15s
+- silent users: 99%
+
+```
+checks..................: 79.39%   ✓ 423768       ✗ 109957
+✗ { ping:no-timeout }...: 94.98%   ✓ 260408       ✗ 13748  
+concurrent_clients......: 14788    27.558058/s
+✗ connection_errors.......: 1466     2.731952/s
+data_received...........: 5.8 GB   11 MB/s
+data_sent...............: 1.2 GB   2.2 MB/s
+iteration_duration......: avg=2m31s    min=5.03s    med=2m6s    max=7m10s p(90)=5m52s  p(95)=6m16s
+iterations..............: 179      0.333574/s
+ping_time...............: avg=2.58s    min=0s       med=355ms   max=1m55s p(90)=9.91s  p(95)=10.16s
+request_response_time...: avg=4.69s    min=0s       med=1.82s   max=1m56s p(90)=13.52s p(95)=20.26s
+vus.....................: 1        min=1          max=14799
+vus_max.................: 30000    min=30000      max=30000
+ws_connecting...........: avg=369.63ms min=607.27µs med=12.67ms max=30s   p(90)=1.05s  p(95)=1.48s
+ws_msgs_received........: 29143339 54309.83454/s
+ws_msgs_sent............: 15601016 29073.147645/s
+ws_session_duration.....: avg=3m53s    min=43.17s   med=4m7s    max=7m10s p(90)=6m13s  p(95)=6m26s
+ws_sessions.............: 14968    27.893496/s
+```
+
+### Run 2
+
+- joining clients: 100/s
+- mean time to chat message: 15s
+- silent users: 99.9%
+
+```
+checks..................: 83.01%   ✓ 728374       ✗ 149003
+✗ { ping:no-timeout }...: 94.75%   ✓ 433911       ✗ 24028  
+concurrent_clients......: 30399    83.862481/s
+✗ connection_errors.......: 48       0.132419/s
+data_received...........: 2.3 GB   6.4 MB/s
+data_sent...............: 427 MB   1.2 MB/s
+iteration_duration......: avg=42.98s   min=6.03s    med=8.13s  max=3m57s  p(90)=2m44s p(95)=3m31s
+iterations..............: 23       0.063451/s
+ping_time...............: avg=2.02s    min=0s       med=154ms  max=1m5s   p(90)=8.56s p(95)=10s   
+request_response_time...: avg=2.74s    min=0s       med=882ms  max=52.79s p(90)=8.53s p(95)=11.57s
+vus.....................: 1        min=1          max=30399
+vus_max.................: 60000    min=60000      max=60000
+ws_connecting...........: avg=213.25ms min=552.35µs med=1.08ms max=30s    p(90)=1s    p(95)=1.1s  
+ws_msgs_received........: 10026316 27659.848399/s
+ws_msgs_sent............: 5510428  15201.75537/s
+ws_session_duration.....: avg=2m41s    min=1m17s    med=3m1s   max=3m57s  p(90)=3m48s p(95)=3m52s
+ws_sessions.............: 30422    83.925931/s
+```
+
 ## 2021-08-27 docker compose on single CPX51
 
 ### Run 1

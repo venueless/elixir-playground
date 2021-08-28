@@ -129,7 +129,7 @@ export default class VenueLessClient extends EventEmitter {
 		this.send('room.send', {
 			room: this.room.id,
 			type: 'channel.message',
-			content: {type: 'text', timestamp: Date.now()}
+			content: {type: 'text', timestamp: Date.now(), body: Date.now().toString()}
 		})
 	}
 

@@ -3,7 +3,7 @@ import VenueLessClient from './client.js'
 
 import { getRandomNormalDist } from './utils.js'
 
-const SILENT_USER_PROPABILITY = 0.9
+const SILENT_USER_PROPABILITY = 0.999
 const MEAN_TIME_TO_CHAT_MESSAGE = 15000 // 15s
 
 export const options = {
@@ -12,7 +12,7 @@ export const options = {
 			executor: 'ramping-vus',
 			startVUs: 0,
 			stages: [
-				{ duration: '5m', target: 10000 },
+				{ duration: '10m', target: 60000 },
 				{ duration: '1m', target: 0 },
 			],
 			gracefulRampDown: '0s',
@@ -22,7 +22,7 @@ export const options = {
 		'checks{ping:no-timeout}': [{threshold: 'rate>0.95', abortOnFail: true}],
 		chat_message: [{threshold: 'p(90)<10000', abortOnFail: true}],
 		request_response: [{threshold: 'p(90)<10000', abortOnFail: true}],
-		connection_errors: [{threshold: 'rate<0.05', abortOnFail: true}]
+		connection_errors: [{threshold: 'rate<0.05'}]
 	}
 }
 
