@@ -1,0 +1,129 @@
+{
+  "id": "load-test",
+  "title": "Unsere tolle Online-Konferenz",
+  "rooms": [
+    {
+      "name": "About",
+      "description": "about",
+      "modules": [
+        {
+          "type": "page.landing",
+          "config": {
+            "header_background_color": "#673ab7",
+            "header_image": "/venueless-logo-full-white.svg",
+            "content": "# Welcome to this example event!\n\nYou might notice that the dates for the current sessions are not actually your current time and that time does not progress. That's because we froze time – only in this demo of course – with the power of programming!\n\nHave a look around!"
+          }
+        }
+      ]
+    },
+    {
+      "name": "More Info",
+      "description": "more info",
+      "modules": [
+        {
+          "type": "page.markdown",
+          "config": {
+            "content": "# Unsere tolle Online-Konferenz\n\nHallo!\nDas ist ein Markdowntext!"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Plenum",
+      "description": "Hier findet die Eröffnungs- und End-Veranstaltung statt",
+      "modules": [
+        {
+          "type": "livestream.native",
+          "config": {
+            "hls_url": "https://s1.live.pretix.eu/hls/sample.m3u8"
+          }
+        },
+        {
+          "type": "question",
+          "config": {
+            "active": true
+          }
+        },
+        {
+          "type": "poll",
+          "config": {
+            "active": true
+          }
+        },
+        {
+          "type": "chat.native",
+          "config": {
+            "volatile": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "Gruppenraum 1",
+      "description": "Hier findet die Eröffnungs- und End-Veranstaltung statt",
+      "modules": [
+        {
+          "type": "call.bigbluebutton",
+          "config": {
+            "record": false
+          }
+        },
+        {
+          "type": "question",
+          "config": {
+            "active": true,
+            "requires_moderation": false
+          }
+        },
+        {
+          "type": "poll",
+          "config": {
+            "active": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "Stage 2",
+      "description": "Hier findet mehr Zeug statt",
+      "modules": [
+        {
+          "type": "livestream.native",
+          "config": {
+            "hls_url": "https://s1.live.pretix.eu/hls/sample.m3u8"
+          }
+        },
+        {
+          "type": "question",
+          "config": {
+            "active": false
+          }
+        },
+        {
+          "type": "poll",
+          "config": {
+            "active": false
+          }
+        },
+        {
+          "type": "chat.native",
+          "config": {
+            "volatile": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "Chat",
+      "description": "Standalone Chat",
+      "modules": [
+        {
+          "type": "chat.native",
+          "config": {
+            "volatile": false
+          }
+        }
+      ]
+    }
+  ]
+}

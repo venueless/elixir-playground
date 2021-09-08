@@ -18,7 +18,7 @@ defmodule Venueless do
 		# See https://hexdocs.pm/elixir/Supervisor.html
 		# for other strategies and supported options
 		Supervisor.start_link(children, [strategy: :one_for_one, name: Venueless.Supervisor])
-		world_config = Jason.decode!(File.read!('./world.json'))
+		world_config = Jason.decode!(File.read!('./world-load-test.json'))
 		world = case Db.Repo.get(Db.World, world_config["id"]) do
 			nil ->
 				world = Db.Repo.insert!(%Db.World{
